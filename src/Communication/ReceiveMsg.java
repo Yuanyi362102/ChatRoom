@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
+import java.awt.Color;
 
 import Frames.ChatFrame;
 
@@ -33,7 +34,9 @@ public class ReceiveMsg extends Thread{
                 String msg = new String(data,0,len);
                 System.out.println("接收到消息:"+msg);
                 //接收的消息添加到消息面板
-                msgAddToMsgPanel recevieMsg = new msgAddToMsgPanel(msg,chatFrame,FlowLayout.LEFT);
+                Color fontColor = new Color(0,0,0);
+                Color bgColor = new Color(221,224,232);
+                msgAddToMsgPanel recevieMsg = new msgAddToMsgPanel(msg,chatFrame,FlowLayout.LEFT,fontColor,bgColor);
                 recevieMsg.addMegToPanel();
             } catch (Exception e) {
                 e.printStackTrace();

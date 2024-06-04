@@ -5,6 +5,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.awt.Color;
 
 import javax.swing.ImageIcon;
 
@@ -33,7 +34,9 @@ public class SendMsg {
             socket.send(packet);
             System.out.println(">>>>>====发出消息到"+ip+"==="+port);
             //将发送的消息添加到面板上
-            msgAddToMsgPanel sendMsg = new msgAddToMsgPanel(msg,chatFrame,FlowLayout.RIGHT);
+            Color fontColor = new Color(221,224,232);
+            Color bgColor = new Color(0,112,236);
+            msgAddToMsgPanel sendMsg = new msgAddToMsgPanel(msg,chatFrame,FlowLayout.RIGHT,fontColor,bgColor);
             sendMsg.addMegToPanel();
         } catch (Exception e) {
             e.printStackTrace();

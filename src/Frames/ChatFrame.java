@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import Communication.*;
 
 import Communication.ReceiveMsg;
 import Communication.SendBtListener;
@@ -34,21 +36,26 @@ class Chat{
 }
    
 public class ChatFrame extends JFrame{
+
     public int uid;
     public String uname;
     public String usex;
     public String uhead;
+
     public String mString ;
     public String ip ;
     public int port ;
+    public int hostPort;
+    public String hostIp;
+
     public JTextField msg;
     public JTextField ipField;
     public JTextField portField;
     public JPanel mainPanel;
     public JPanel displayPanel ;
     public DatagramSocket socket;
-    public int hostPort;
-    public String hostIp;
+
+
     public JScrollPane jScrollPane;
     /**聊天对方的信息Label*/
     private JLabel otherInfoLbl;
@@ -56,6 +63,7 @@ public class ChatFrame extends JFrame{
     private JLabel currentUserLbl;
     /**聊天信息列表区域*/
     public JPanel msgListArea;
+    public JLabel chatbgJLabel;
     /**要发送的信息区域*/
     public static JTextArea sendArea;
     /** 在线用户列表 */
@@ -64,9 +72,6 @@ public class ChatFrame extends JFrame{
     public static JLabel onlineCountLbl;
     /** 准备发送的文件 */
     //public static FileInfo sendFile;
-
-    /** 私聊复选框 */
-    public JCheckBox rybqBtn;
 
     public ChatFrame(int uid,String uname,String usex,String uhead){
         this.uid = uid;
@@ -79,7 +84,7 @@ public class ChatFrame extends JFrame{
     }
 
     public void init(){
-        this.setTitle("聊天室");
+        this.setTitle("💬"+"聊天室"+"💬");
         this.setSize(550, 500);
         this.setResizable(false);
 
@@ -108,13 +113,12 @@ public class ChatFrame extends JFrame{
         //右下连发送消息面板
         JPanel sendPanel = new JPanel();
         sendPanel.setLayout(new BorderLayout());
-
         // 创建一个分隔窗格
         JSplitPane splitPane2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
                 infoPanel, sendPanel);//
         splitPane2.setDividerLocation(300);
         splitPane2.setDividerSize(5);
-        mainPanel.add(splitPane2, BorderLayout.CENTER);//将左边的主面板再添加一个上下分割的窗格，上面是消息展示面板，下面是发送消息面板
+        mainPanel.add(splitPane2, BorderLayout.CENTER);
 
         try {
             socket = new DatagramSocket();
@@ -129,19 +133,28 @@ public class ChatFrame extends JFrame{
         infoPanel.add(otherInfoLbl, BorderLayout.NORTH);
 
         msgListArea = new JPanel();
-        //msgListArea.setLineWrap(true);//自动换行
         infoPanel.add(new JScrollPane(msgListArea,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
 
-        JPanel tempPanel = new JPanel();
-        tempPanel.setLayout(new BorderLayout());
-        sendPanel.add(tempPanel, BorderLayout.NORTH);
+
+        chatbgJLabel = new JLabel(new ImageIcon("images/beach copy.png"));
+        chatbgJLabel.setOpaque(false);
+        msgListArea.add(chatbgJLabel);
 
         // 聊天按钮面板
         JPanel btnPanel = new JPanel();
         btnPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        tempPanel.add(btnPanel, BorderLayout.NORTH);
+        btnPanel.setOpaque(false);
+        JPanel sendmsgJPanel = new JPanel();
+        sendmsgJPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        sendmsgJPanel.setOpaque(false);
+        JLabel sendPanelJLabel = new JLabel(new ImageIcon("images/beach.png"));
+        sendPanelJLabel.setLayout(new GridLayout(4,1));
+        sendPanelJLabel.setOpaque(false);
+        sendPanelJLabel.add(btnPanel);
+        sendPanelJLabel.add(sendmsgJPanel);
+        sendPanel.add(sendPanelJLabel);
 
         //字体按钮
         JButton fontBtn = new JButton(new ImageIcon("images/font.png"));
@@ -174,54 +187,51 @@ public class ChatFrame extends JFrame{
         });
         btnPanel.add(sendFileBtn);
 
-
-        //dispaly面板布局
-
-        displayPanel.setLayout(new GridLayout(10,3));
-        JLabel ipJLabel = new JLabel("ip:");
-        displayPanel.add(ipJLabel);
-        ipField = new JTextField(10);
-        ipField.setPreferredSize(new Dimension(10,1));
-        displayPanel.add(ipField);
-
-        JLabel portJLabel = new JLabel("port:");
-        displayPanel.add(portJLabel);
-        portField = new JTextField(9);
-        displayPanel.add(portField);
-
-        JLabel idJLabel = new JLabel("id:");
-        displayPanel.add(idJLabel);
-        JLabel id = new JLabel(String.valueOf(uid));
-        displayPanel.add(id);
- 
-        JLabel namJLabel = new JLabel("name:");
-        displayPanel.add(namJLabel);
-        JLabel name = new JLabel(uname);
-        displayPanel.add(name);
-
-        JLabel sexJLabel = new JLabel("sex:");
-        displayPanel.add(sexJLabel);
-        JLabel sex = new JLabel(usex);
-        displayPanel.add(sex);
-    
-        JLabel headlabel = new JLabel("headInco:");
-        displayPanel.add(headlabel);
-        String part[] = uhead.split("\\.");//因为点号在正则表达式中是一个特殊字符，它匹配任何单个字符。所以要加上双反斜线 \\ 来转义点号
-        JLabel head = new JLabel(new ImageIcon(part[0]+" copy."+part[1]));
-        displayPanel.add(head);
-  
-        for(int i=0;i<8;i++){
-            displayPanel.add(new JLabel(new ImageIcon("images/image.png")));
-        }
-        
- 
-        msg = new JTextField(10);
-        tempPanel.add(msg,BorderLayout.CENTER);
+        msg = new JTextField(20);
         JButton SendButton = new JButton("发送");
-        tempPanel.add(SendButton,BorderLayout.EAST);
         SendBtListener sendMgsListener = new SendBtListener(this,socket);
         SendButton.addActionListener(sendMgsListener);
-        
+        sendmsgJPanel.add(msg);
+        sendmsgJPanel.add(SendButton);
+
+
+        //dispaly面板布局
+        JLabel disLabel = new JLabel(new ImageIcon("images/beach.png"));
+        displayPanel.add(disLabel);
+        disLabel.setOpaque(false);
+
+        disLabel.setLayout(new GridLayout(10,3));
+        JLabel ipJLabel = new JLabel("ip:");
+        disLabel.add(ipJLabel);
+        ipField = new JTextField(10);
+        ipField.setPreferredSize(new Dimension(10,1));
+        disLabel.add(ipField);
+
+        JLabel portJLabel = new JLabel("port:");
+        disLabel.add(portJLabel);
+        portField = new JTextField(9);
+        disLabel.add(portField);
+
+        JLabel idJLabel = new JLabel("id:");
+        disLabel.add(idJLabel);
+        JLabel id = new JLabel(String.valueOf(uid));
+        disLabel.add(id);
+ 
+        JLabel namJLabel = new JLabel("name:");
+        disLabel.add(namJLabel);
+        JLabel name = new JLabel(uname);
+        disLabel.add(name);
+
+        JLabel sexJLabel = new JLabel("sex:");
+        disLabel.add(sexJLabel);
+        JLabel sex = new JLabel(usex);
+        disLabel.add(sex);
+    
+        JLabel headlabel = new JLabel("headInco:");
+        disLabel.add(headlabel);
+        String part[] = uhead.split("\\.");//因为点号在正则表达式中是一个特殊字符，它匹配任何单个字符。所以要加上双反斜线 \\ 来转义点号
+        JLabel head = new JLabel(new ImageIcon(part[0]+" copy."+part[1]));
+        disLabel.add(head);  
     }
 
 }
