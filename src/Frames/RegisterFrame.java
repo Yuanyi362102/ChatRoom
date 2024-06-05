@@ -11,10 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import java.awt.GridLayout;
 
 import DataBase.*;;
 
@@ -27,11 +29,34 @@ public class RegisterFrame extends JFrame{
         setVisible(true);
     }
     void init(){
-        setLayout(new FlowLayout());
+        //setLayout(new FlowLayout());
         setBounds(500, 300, 290, 300);
         setResizable(false);
         setIconImage(new ImageIcon("images/0.png").getImage());
         getContentPane().setBackground(Color.PINK);
+
+        JLabel bgJLabel = new JLabel(new ImageIcon("images/night.png"));
+        bgJLabel.setLayout(new GridLayout(4,1));
+        bgJLabel.setOpaque(false);
+        this.add(bgJLabel);
+
+        JPanel itermPanel1 = new JPanel();
+        itermPanel1.setOpaque(false);
+        itermPanel1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JPanel itermPanel2 = new JPanel();
+        itermPanel2.setOpaque(false);
+        itermPanel2.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JPanel itermPanel3 = new JPanel();
+        itermPanel3.setOpaque(false);
+        itermPanel3.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JPanel itermPanel4 = new JPanel();
+        itermPanel4.setOpaque(false);
+        itermPanel4.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        bgJLabel.add(itermPanel1);
+        bgJLabel.add(itermPanel2);
+        bgJLabel.add(itermPanel3);
+        bgJLabel.add(itermPanel4);
 
         JLabel nameLabel = new JLabel("昵称");
         JLabel passLabel = new JLabel("密码*");
@@ -104,11 +129,11 @@ public class RegisterFrame extends JFrame{
             }
         });
 
-        add(nameLabel);  add(name);
-        add(male);       add(female);
-        add(passLabel);  add(pass);
-        add(headLabel);  add(head);
-        add(cPassLabel); add(cPass);
-        add(ok);         add(reset);    add(cancel);
+        itermPanel1.add(nameLabel); itermPanel1.add(name); 
+        itermPanel1.add(male);      itermPanel1.add(female);
+        itermPanel2.add(passLabel);  itermPanel2.add(pass);
+        itermPanel2.add(headLabel);  itermPanel2.add(head);
+        itermPanel3.add(cPassLabel); itermPanel3.add(cPass);
+        itermPanel4.add(ok);         itermPanel4.add(reset);    itermPanel4.add(cancel);
     }
 }

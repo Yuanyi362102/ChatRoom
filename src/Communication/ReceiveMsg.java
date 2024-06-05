@@ -6,14 +6,20 @@ import java.net.DatagramSocket;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
-import java.awt.Color;
 
+import java.awt.Color;
+import java.awt.*;
 import Frames.ChatFrame;
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.*;
 
 
 public class ReceiveMsg extends Thread{
     ChatFrame chatFrame;
     DatagramSocket socket;
+    
     public ReceiveMsg(ChatFrame chatFrame,DatagramSocket socket){
         this.chatFrame = chatFrame;
         this.socket = socket;
@@ -38,7 +44,16 @@ public class ReceiveMsg extends Thread{
                 Color bgColor = new Color(221,224,232);
                 msgAddToMsgPanel recevieMsg = new msgAddToMsgPanel(msg,chatFrame,FlowLayout.LEFT,fontColor,bgColor);
                 recevieMsg.addMegToPanel();
-            } catch (Exception e) {
+                new Thread(() -> {
+                    try {
+                        RecevieTips recevieTips = new RecevieTips();
+                        recevieTips.fun();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+    
+            }catch(IOException e){
                 e.printStackTrace();
             }
         }
