@@ -4,16 +4,9 @@ import java.awt.FlowLayout;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-import javax.swing.ImageIcon;
-import javax.swing.SwingUtilities;
-
 import java.awt.Color;
-import java.awt.*;
 import Frames.ChatFrame;
-import java.io.File;
 import java.io.IOException;
-
-import javax.sound.sampled.*;
 
 
 public class ReceiveMsg extends Thread{

@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -29,7 +28,6 @@ public class RegisterFrame extends JFrame{
         setVisible(true);
     }
     void init(){
-        //setLayout(new FlowLayout());
         setBounds(500, 300, 290, 300);
         setResizable(false);
         setIconImage(new ImageIcon("images/0.png").getImage());

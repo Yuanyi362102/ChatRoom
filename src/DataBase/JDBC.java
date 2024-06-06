@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class JDBC {
     public static Connection connecDB(String DBName, String id, String pass){
         Connection con = null;
-        String uri = "jdbc:mysql://localhost:3306/demo?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+        String uri = "jdbc:mysql://localhost:3306/demo ?useSSL=false &allowPublicKeyRetrieval=true &serverTimezone=UTC";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("驱动成功");

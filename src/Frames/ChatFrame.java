@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -14,64 +13,41 @@ import java.net.InetAddress;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import Communication.*;
 
 import Communication.ReceiveMsg;
 import Communication.SendBtListener;
-import DataBase.*;
-
-class Chat{
-    public static void main(String[] args) {
-        new LoginFrame();
-    }
-}
    
 public class ChatFrame extends JFrame{
 
+    /*用户信息*/
     public int uid;
     public String uname;
     public String usex;
     public String uhead;
 
-    public String mString ;
-    public String ip ;
-    public int port ;
+    /*当前主机的ip和端口*/
     public int hostPort;
     public String hostIp;
 
     public JTextField msg;
     public JTextField ipField;
     public JTextField portField;
+
     public JPanel mainPanel;
-    public JPanel displayPanel ;
+    public JPanel displayPanel;
+    public JPanel msgListArea;//消息展示面板
+
     public DatagramSocket socket;
+ 
+    private JLabel otherInfoLbl;//聊天对方的信息Label
+    public JLabel chatbgJLabel;//聊天背景标签
 
-
-    public JScrollPane jScrollPane;
-    /**聊天对方的信息Label*/
-    private JLabel otherInfoLbl;
-    /** 当前用户信息Lbl */
-    private JLabel currentUserLbl;
-    /**聊天信息列表区域*/
-    public JPanel msgListArea;
-    public JLabel chatbgJLabel;
-    /**要发送的信息区域*/
-    public static JTextArea sendArea;
-    /** 在线用户列表 */
-    public static JList onlineList;
-    /** 在线用户数统计Lbl */
-    public static JLabel onlineCountLbl;
-    /** 准备发送的文件 */
-    //public static FileInfo sendFile;
 
     public ChatFrame(int uid,String uname,String usex,String uhead){
         this.uid = uid;
@@ -110,7 +86,7 @@ public class ChatFrame extends JFrame{
         //左上边信息显示面板
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BorderLayout());
-        //右下连发送消息面板
+        //左下边发送消息面板
         JPanel sendPanel = new JPanel();
         sendPanel.setLayout(new BorderLayout());
         // 创建一个分隔窗格

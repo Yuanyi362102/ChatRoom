@@ -1,13 +1,11 @@
 package DataBase;
 import java.sql.*;
-import java.util.Random;
 
 public class GenerateID {
     public static int generate() {
         int ID = 0;
         Connection con;
         PreparedStatement pstmt; // 使用PreparedStatement
-        Statement sql;
         ResultSet rs;
         Boolean Continue = true;
         con = JDBC.connecDB("demo", "root", "Aa360781@@");

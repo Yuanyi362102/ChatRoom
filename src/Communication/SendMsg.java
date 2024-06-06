@@ -4,10 +4,7 @@ import java.awt.FlowLayout;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.awt.Color;
-
-import javax.swing.ImageIcon;
 
 import Frames.ChatFrame;
 

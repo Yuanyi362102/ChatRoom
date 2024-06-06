@@ -3,9 +3,6 @@ package Communication;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.DatagramSocket;
-
-import javax.swing.ImageIcon;
-
 import Frames.ChatFrame;
 
 public class SendBtListener implements ActionListener{

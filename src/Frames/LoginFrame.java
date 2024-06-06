@@ -21,7 +21,6 @@ class Login{
 }
 
 public class LoginFrame extends JFrame {
-    private static final long serialVersionUID = -3426717670093483287L;
 
     private JTextField account;
     private JPasswordField password;
@@ -116,7 +115,7 @@ public class LoginFrame extends JFrame {
                     LoadInfo.Load(ID);
                 }
                 else{
-                    JOptionPane.showMessageDialog(LoginFrame.this,"用户不存在",
+                    JOptionPane.showMessageDialog(LoginFrame.this,"用户不存在或密码错误",
                     "登录失败",JOptionPane.ERROR_MESSAGE);
                 }
             }

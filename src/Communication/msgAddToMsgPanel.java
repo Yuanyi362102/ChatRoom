@@ -5,10 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 import Frames.ChatFrame;
@@ -30,12 +28,11 @@ public class msgAddToMsgPanel {
         System.out.println("========msgAddToMsgPanel========"+msg);
         JLabel msgLabel = new JLabel(msg,SwingConstants.RIGHT);//文本在标签内的水平对齐方式为居中
         msgLabel.setForeground(fontColor);//new Color(221,224,232));
-        msgLabel.setBackground(bgColor);//new Color(58,165,237));//RGB配色方案
+        msgLabel.setBackground(bgColor);//new Color(58,165,237));RGB配色方案
         msgLabel.setSize(10,25);
-        msgLabel.setOpaque(true);
+        msgLabel.setOpaque(true);//设置为不透明
         
         JPanel itermPanel = new JPanel();
-        itermPanel.setPreferredSize(new Dimension(chatFrame.chatbgJLabel.getWidth()-10,25));
         itermPanel.setOpaque(false);  
         itermPanel.add(msgLabel); 
 
