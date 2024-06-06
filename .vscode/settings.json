@@ -1,0 +1,12 @@
+{
+    "java.project.sourcePaths": [
+        "src",
+        "lib"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "/Users/yuanshuai/Downloads/mysql-connector-j-8.0.33/mysql-connector-j-8.0.33.jar",
+        "/Users/yuanshuai/Downloads/qq聊天器分享/qq源码/qq/lib/wdzltools.jar"
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
+}
